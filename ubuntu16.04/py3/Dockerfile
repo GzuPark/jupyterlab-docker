@@ -31,29 +31,28 @@ RUN curl -sSL http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.
 RUN bash /tmp/miniconda.sh -bfp /usr/local
 RUN rm -rf /tmp/miniconda.sh
 
-ENV PATH=/miniconda/bin:${PATH}
-
 # Set up conda environment
 RUN conda update -y conda
 RUN conda create -n ${CONDA_ENV_NAME} python=${PYTHON_VERSION}
-RUN echo "source activate ${CONDA_ENV_NAME}" > ~/.bashrc
 ENV PATH /opt/conda/envs/${CONDA_ENV_NAME}/bin:$PATH
-RUN /bin/bash -c "source activate ${CONDA_ENV_NAME}"
+RUN echo "source activate ${CONDA_ENV_NAME}" > ~/.bashrc
+RUN /bin/bash -c "source ~/.bashrc && conda env list"
 
 # Install jupyter and notebook extension
-RUN conda install jupyter ipywidgets
-RUN jupyter nbextension enable --py widgetsnbextension
+RUN /bin/bash -c "source ~/.bashrc && conda install jupyter ipywidgets"
+RUN /bin/bash -c "source ~/.bashrc && jupyter nbextension enable --py widgetsnbextension"
 
 # Install jupyterlab
-RUN conda install jupyterlab
-RUN jupyter serverextension enable --py jupyterlab
+RUN /bin/bash -c "source ~/.bashrc && conda install jupyterlab"
+RUN /bin/bash -c "source ~/.bashrc && jupyter serverextension enable --py jupyterlab"
 
 # Install packages
-RUN pip --no-cache-dir install \
+RUN /bin/bash -c "source ~/.bashrc && pip --no-cache-dir install \
     numpy \
     pandas \
     matplotlib \
-    pillow
+    pillow \
+    "
 
 # Copy jupyter password
 RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/jupyter_notebook_config.py -o /root/.jupyter/jupyter_notebook_config.py
@@ -73,4 +72,4 @@ WORKDIR /workspace
 
 RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/tutorial_change_passwd.ipynb -o /workspace/tutorial_change_passwd.ipynb
 
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--notebook-dir=/workspace", "--allow-root"]
+CMD /bin/bash -c "source ~/.bashrc && jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --notebook-dir=/workspace --allow-root"
