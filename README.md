@@ -12,7 +12,7 @@ Base OS is Ubuntu and use the Miniconda3 environment.
   - 16.04
   - (expected) 18.04
 - GPU
-  - (coming soon) CUDA 9.2
+  - CUDA 10.1
 - Miniconda3
   - Python 3.7.3
     - numpy
@@ -54,4 +54,9 @@ $ docker run -it --rm -p 8888:8888 gzupark/jupyerlab:py3-ml-cpp
 Want to mount with your local machine:
 ```sh
 $ docker run -it --rm -v $(realpath ~/project):/workspace -p 8888:8888 gzupark/jupyterlab
+```
+
+Want to use GPU version:
+```sh
+$ docker run -it --rm --runtime=nvidia -p 8888:8888 gzupark/jupyterlab:latest-gpu
 ```
