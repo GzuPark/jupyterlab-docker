@@ -44,12 +44,9 @@ RUN /bin/bash -c "source ~/.bashrc && conda install jupyterlab"
 RUN /bin/bash -c "source ~/.bashrc && jupyter serverextension enable --py jupyterlab"
 
 # Install packages
-RUN /bin/bash -c "source ~/.bashrc && pip --no-cache-dir install \
-    numpy \
-    pandas \
-    matplotlib \
-    pillow \
-    "
+RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/requirements.txt -o requirements.txt
+RUN /bin/bash -c "source ~/.bashrc && pip --no-cache-dir install -r requirements.txt"
+RUN rm requirements.txt
 
 # Copy jupyter password
 RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/jupyter_notebook_config.py -o /root/.jupyter/jupyter_notebook_config.py

@@ -1,23 +1,15 @@
 FROM gzupark/jupyterlab:xenial-gpu-py3
 
-ENV PYTHON_VERSION 3.7
-ENV CONDA_ENV_NAME jupyterlab
-ENV LANG C.UTF-8
-
 RUN apt-get update
 
-RUN /bin/bash -c "source activate ${CONDA_ENV_NAME}"
-
 # Install packages
-RUN pip --no-cache-dir install \    
-    nltk \
-    scipy \
-    scikit-learn \
-    tqdm \
-    opencv-python \
-    tensorflow-gpu \
-    torch \
-    torchvision
+RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/requirements-ml.txt -o requirements.txt
+RUN /bin/bash -c "source ~/.bashrc && pip --no-cache-dir install -r requirements.txt"
+RUN rm requirements.txt
+
+# Install deep learning packages
+RUN /bin/bash -c "source ~/.bashrc && pip install tensorflow-gpu"
+RUN /bin/bash -c "source ~/.bashrc && conda install pytorch torchvision cudatoolkit=10.0 -c pytorch"
 
 # Clean up
 RUN apt-get update \
@@ -27,4 +19,4 @@ RUN apt-get update \
 # Expose port & cmd
 EXPOSE 8888
 
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--notebook-dir=/workspace", "--allow-root"]
+CMD /bin/bash -c "source ~/.bashrc && jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --notebook-dir=/workspace --allow-root"
