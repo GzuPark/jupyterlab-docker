@@ -35,7 +35,7 @@ Base OS is Ubuntu and use the Miniconda3 environment.
 - `-py3`: Python 3.7.3
 - `-gpu`: enable to use CUDA
 - `-ml`: pre-installed machine learning packages
-- `-cpp`: enable to use C++ environment
+- `-cpp`: enable to use C++ environment from [xeus-cling](https://github.com/QuantStack/xeus-cling) which is the jupyter kernel for the C++
 
 ## Running Containers
 
