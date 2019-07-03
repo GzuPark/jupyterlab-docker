@@ -9,12 +9,12 @@ RUN rm requirements.txt
 
 # Install deep learning packages
 RUN /bin/bash -c "source ~/.bashrc && pip install tensorflow-gpu"
-RUN /bin/bash -c "source ~/.bashrc && conda install pytorch torchvision cudatoolkit=10.0 -c pytorch"
+RUN /bin/bash -c "source ~/.bashrc && conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch"
 
 # Clean up
-RUN apt-get update \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Expose port & cmd
 EXPOSE 8888
