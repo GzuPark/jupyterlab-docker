@@ -10,7 +10,7 @@ Base OS is Ubuntu and use the Miniconda3 environment.
 
 - Ubuntu
   - 16.04
-  - (expected) 18.04
+  - 18.04
 - GPU
   - CUDA 10.1
 - Miniconda3
@@ -31,7 +31,10 @@ Base OS is Ubuntu and use the Miniconda3 environment.
 
 ## Tag Rules
 
+- `latest`: same as `xenial-py3`
+- `latest-gpu`: same as `xenial-gpu-py3`
 - `xenial`: Ubuntu16.04
+- `bionic`: Ubuntu18.04
 - `-py3`: Python 3.7.3
 - `-gpu`: enable to use CUDA
 - `-ml`: pre-installed machine learning packages
