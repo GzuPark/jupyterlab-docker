@@ -1,4 +1,6 @@
-numpy
-pandas
-matplotlib
-pillow
+"numpy==1.16*"
+"pandas==0.24*"
+"matplotlib==3.1"
+"pillow==6.1*"
+"beautifulsoup4==4.7*"
+"cython==0.29*"
