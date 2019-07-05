@@ -4,7 +4,7 @@ RUN apt-get update
 
 # Install C++ kernel
 # https://github.com/QuantStack/xeus-cling
-RUN /bin/bash -c "source ~/.bashrc && conda install -y xeus-cling -c conda-forge"
+RUN /bin/bash -c "source ~/.bashrc && conda install -y xeus-cling~=0.6.0 -c conda-forge"
 
 # Clean up
 RUN apt-get update && \
