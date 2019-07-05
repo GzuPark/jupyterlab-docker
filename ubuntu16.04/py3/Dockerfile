@@ -29,23 +29,23 @@ ENV PATH /opt/conda/envs/${CONDA_ENV_NAME}/bin:$PATH
 RUN echo "source activate ${CONDA_ENV_NAME}" > ~/.bashrc
 
 # Install jupyter and notebook extension
-RUN /bin/bash -c "source ~/.bashrc && conda install -q -y jupyter 'ipywidgets==7.4*' && \
+RUN /bin/bash -c "source ~/.bashrc && conda install -q -y jupyter ipywidgets~=7.4.2 && \
     jupyter nbextension enable --py widgetsnbextension && \
     jupyter notebook --generate-config"
 
 # Install jupyterlab
-RUN /bin/bash -c "source ~/.bashrc && conda install -q -y 'jupyterlab==0.35*' && jupyter serverextension enable --py jupyterlab"
+RUN /bin/bash -c "source ~/.bashrc && conda install -q -y jupyterlab~=0.35.5 && jupyter serverextension enable --py jupyterlab"
 
 # Install git extension on jupyterlab
-RUN /bin/bash -c "source ~/.bashrc && conda install -q -y 'nodejs==10.13*' && \
+RUN /bin/bash -c "source ~/.bashrc && conda install -q -y nodejs~=10.13.0 && \
     jupyter labextension install @jupyterlab/git && \
-    pip --no-cache-dir install jupyterlab-git==0.6.1 && \
+    pip --no-cache-dir install jupyterlab-git~=0.6.1 && \
     jupyter serverextension enable --py jupyterlab_git"
 
 # Install github extension on jupyterlab
 RUN /bin/bash -c "source ~/.bashrc && \
     jupyter labextension install @jupyterlab/github && \
-    pip --no-cache-dir install jupyterlab_github==0.7.0 && \
+    pip --no-cache-dir install jupyterlab_github~=0.7.0 && \
     jupyter serverextension enable --sys-prefix jupyterlab_github"
 
 # Install packages
