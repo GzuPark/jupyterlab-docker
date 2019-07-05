@@ -49,14 +49,12 @@ RUN /bin/bash -c "source ~/.bashrc && \
     jupyter serverextension enable --sys-prefix jupyterlab_github"
 
 # Install packages
-# RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/requirements.txt -o requirements.txt
-COPY requirements.txt requirements.txt
+RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/requirements.txt -o requirements.txt
 RUN /bin/bash -c "source ~/.bashrc && pip --no-cache-dir install -r requirements.txt"
 RUN rm requirements.txt
 
 # Copy jupyter password
-# RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/jupyter_notebook_config.py -o /root/.jupyter/jupyter_notebook_config.py
-COPY jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
+RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/jupyter_notebook_config.py -o /root/.jupyter/jupyter_notebook_config.py
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     build-essential \
@@ -84,7 +82,6 @@ EXPOSE 8888
 RUN mkdir /workspace
 WORKDIR /workspace
 
-# RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/tutorial_change_passwd.ipynb -o /workspace/tutorial_change_passwd.ipynb
-COPY tutorial_change_passwd.ipynb workspace/tutorial_change_passwd.ipynb
+RUN curl -sSL https://raw.githubusercontent.com/gzupark/jupyterlab-docker/master/assets/tutorial_change_passwd.ipynb -o /workspace/tutorial_change_passwd.ipynb
 
 CMD /bin/bash -c "source ~/.bashrc && jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --notebook-dir=/workspace --allow-root"
