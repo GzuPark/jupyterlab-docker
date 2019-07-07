@@ -1,4 +1,4 @@
-FROM gzupark/jupyterlab:xenial-gpu-py3
+FROM gzupark/jupyterlab:bionic-gpu-py3
 
 RUN apt-get update
 
