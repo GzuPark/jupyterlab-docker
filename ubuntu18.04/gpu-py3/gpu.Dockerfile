@@ -1,5 +1,9 @@
 FROM nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
 
+ENV PYTHON_VERSION 3.7
+ENV CONDA_ENV_NAME jupyterlab
+ENV LANG C.UTF-8
+
 RUN apt-get update && apt-get install -y \
     apt-utils \
     wget \
@@ -9,10 +13,6 @@ RUN apt-get update && apt-get install -y \
     git \
     sudo \
     fonts-liberation
-
-ENV PYTHON_VERSION 3.7
-ENV CONDA_ENV_NAME jupyterlab
-ENV LANG C.UTF-8
 
 # Installation miniconda3
 RUN curl -sSL http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh && \
@@ -66,7 +66,11 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     netcat \
     pandoc \
     python-dev \
-    ffmpeg
+    ffmpeg \
+    libgtk2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev
 
 # Clean up
 RUN apt-get clean && \
